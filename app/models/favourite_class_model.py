@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class FavouriteClassDTO(BaseModel):
+class FavouriteClassRequestBody(BaseModel):
     user_id: str
     class_id: str
     

@@ -5,26 +5,19 @@ from flask import Blueprint, jsonify, request
 import bcrypt
 from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity, get_jwt
 
-from extensions import jwt
-
-from db import get_connection, release_connection
-from models.login_DTO import  LoginDTO
-from models.register_DTO import RegisterDTO
-
-BLOCKLIST = set()
-
-@jwt.token_in_blocklist_loader
-def check_if_token_revoked(jwt_header, jwt_payload):
-    return jwt_payload["jti"] in BLOCKLIST
+from app.db.connection import get_connection, release_connection
+from app.models.auth_model import  LoginRequestBody, RegisterRequestBody
+from app.utils.decorators import validate_payload
 
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @auth_bp.route('/register', methods=['POST'])
-def register():
+@validate_payload(RegisterRequestBody)
+def register(body: RegisterRequestBody):
     conn = None
     cur = None
     try:
-        user = RegisterDTO(**request.json)
+        user = request.get_json(body)
         conn = get_connection()
         cur = conn.cursor()
         

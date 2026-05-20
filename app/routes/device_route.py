@@ -3,8 +3,8 @@ from datetime import datetime, timezone
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import jwt_required
 
-from db import get_connection, release_connection
-from models.device_DTO import DeviceDTO
+from app.db.connection import get_connection, release_connection
+from app.models.device_model import DeviceDTO
 
 device_bp = Blueprint('device', __name__, url_prefix='/devices')
 
