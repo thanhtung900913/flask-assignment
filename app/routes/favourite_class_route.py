@@ -3,8 +3,8 @@ from datetime import datetime, timezone
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 
-from db import get_connection
-from models.favourite_class_DTO import FavouriteClassDTO
+from app.db.connection import get_connection
+from app.models.favourite_class_model import FavouriteClassDTO
 
 favourite_class_bp = Blueprint('favourite_class', __name__, url_prefix='/favourites')
 

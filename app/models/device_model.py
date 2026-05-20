@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
-class DeviceDTO(BaseModel):
+class DeviceRequestBody(BaseModel):
     device_info: str
     is_disabled: bool
